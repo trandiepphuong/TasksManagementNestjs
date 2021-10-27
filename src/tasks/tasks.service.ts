@@ -23,17 +23,9 @@ export class TasksService {
   // public getAllTasks(): Task[] {
   //   return this.tasks;
   // }
-  // createTask(createTaskDto: CreateTaskDto): Task {
-  //   const { title, description } = createTaskDto;
-  //   const task: Task = {
-  //     id: uuid(),
-  //     title,
-  //     description,
-  //     status: TaskStatus.OPEN,
-  //   };
-  //   this.tasks.push(task);
-  //   return task;
-  // }
+  createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
+  }
   // updateTask(updateTaskDto: UpdateTaskDto, id: string): Task {
   //   const { title, description } = updateTaskDto;
   //   const oldTask = this.getTaskById(id);
@@ -49,16 +41,12 @@ export class TasksService {
   //   task.status = status;
   //   return task;
   // }
-  // //   deleteTask(id: string): Task {
-  // //     const task: Task = this.getTaskById(id);
-  // //     const indexOfTask = this.tasks.indexOf(task);
-  // //     this.tasks.splice(indexOfTask, 1);
-  // //     return task;
-  // //   }
-  // deleteTask(id: string): void {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id !== found.id);
-  // }
+  async deleteTask(id: string): Promise<void> {
+    const result = await this.tasksRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID ${id} not founded.`);
+    }
+  }
   // getTasksWithFilter(filterDto: GetTasksFilterDto): Task[] {
   //   const { status, search } = filterDto;
   //   let tasks = this.getAllTasks();
