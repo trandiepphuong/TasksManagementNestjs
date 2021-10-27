@@ -44,15 +44,15 @@ export class TasksController {
   // updateTask(
   //   @Body() updateTaskDto: UpdateTaskDto,
   //   @Param('id') id: string,
-  // ): Task {
+  // ): Promise<Task> {
   //   return this.tasksService.updateTask(updateTaskDto, id);
   // }
-  // @Put('/:id/status')
-  // updateTaskStatus(
-  //   @Param('id') id: string,
-  //   @Body() updateTaskStatusDto: UpdateTaskStatusDto,
-  // ): Task {
-  //   const { status } = updateTaskStatusDto;
-  //   return this.tasksService.updateTaskStatus(status, id);
-  // }
+  @Put('/:id/status')
+  updateTaskStatus(
+    @Param('id') id: string,
+    @Body() updateTaskStatusDto: UpdateTaskStatusDto,
+  ): Promise<Task> {
+    const { status } = updateTaskStatusDto;
+    return this.tasksService.updateTaskStatus(status, id);
+  }
 }
