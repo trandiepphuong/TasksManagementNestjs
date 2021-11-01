@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -57,7 +58,7 @@ export class TasksController {
     return this.tasksService.deleteTask(id, user);
   }
 
-  @Put('/:id/status')
+  @Patch('/:id/status')
   updateTaskStatus(
     @Param('id') id: string,
     @Body() updateTaskStatusDto: UpdateTaskStatusDto,
